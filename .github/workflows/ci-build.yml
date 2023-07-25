@@ -26,28 +26,28 @@ jobs:
         with:
           dotnet-version: '7.0'
       - name: Install Ingestion dependencies
-        run: dotnet restore src/Serilog.AspNetCore.Ingestion/
+        run: dotnet restore src/UnlockedData.Serilog.AspNetCore.Ingestion/
       - name: Install BrowserSink dependencies
-        run: dotnet restore src/Serilog.Sinks.BrowserHttp/      
+        run: dotnet restore src/UnlockedData.Serilog.Sinks.BrowserHttp/      
       - name: ngbv set version
         uses: aarnott/nbgv@v0.4
         with:
           setAllVars: true
       - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
       - name: Build
-        run: dotnet build src/Serilog.AspNetCore.Ingestion/ --configuration Release --no-restore
+        run: dotnet build src/UnlockedData.Serilog.AspNetCore.Ingestion/ --configuration Release --no-restore
       - name: Build
-        run: dotnet build src/Serilog.Sinks.BrowserHttp/ --configuration Release --no-restore  
+        run: dotnet build src/UnlockedData.Serilog.Sinks.BrowserHttp/ --configuration Release --no-restore  
       - name: Unit Tests
-        run: dotnet test src/Serilog.AspNetCore.Ingestion/ --no-restore --verbosity normal
+        run: dotnet test src/UnlockedData.Serilog.AspNetCore.Ingestion/ --no-restore --verbosity normal
       - name: Unit Tests
-        run: dotnet test src/Serilog.Sinks.BrowserHttp/ --no-restore --verbosity normal  
+        run: dotnet test src/UnlockedData.Serilog.Sinks.BrowserHttp/ --no-restore --verbosity normal  
       - name: Create Package Dir
         run: mkdir ${{ github.workspace }}/package
       - name: Pack
-        run: dotnet pack src/Serilog.AspNetCore.Ingestion/ --no-build -c Release --output "${{ github.workspace }}/package"
+        run: dotnet pack src/UnlockedData.Serilog.AspNetCore.Ingestion/ --no-build -c Release --output "${{ github.workspace }}/package"
       - name: Pack
-        run: dotnet pack src/Serilog.Sinks.BrowserHttp/ --no-build -c Release --output "${{ github.workspace }}/package"  
+        run: dotnet pack src/UnlockedData.Serilog.Sinks.BrowserHttp/ --no-build -c Release --output "${{ github.workspace }}/package"  
       - name: Upload Artifacts
         uses: actions/upload-artifact@v1
         with:

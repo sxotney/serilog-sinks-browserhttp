@@ -12,8 +12,5 @@
     <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Counter.cshtml" />
-  </ItemGroup>
 
 </Project>

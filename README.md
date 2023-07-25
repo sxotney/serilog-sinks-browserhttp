@@ -1,4 +1,6 @@
-# Serilog.Sinks.BrowserHttp [![Build status](https://ci.appveyor.com/api/projects/status/3cdhiwgd59sfdpg5?svg=true)](https://ci.appveyor.com/project/NicholasBlumhardt/serilog-sinks-browserhttp)
+# Serilog.Sinks.BrowserHttp
+
+Forked from [nblumhardt/serilog-sinks-browserhttp](https://github.com/nblumhardt/serilog-sinks-browserhttp) simply for version bumping. All credit is to contributors over there. Although they state the project is a PoC stage, it's been working great. Package name changes were implemented so as not to cross streams with anybody.
 
 **Note:** this project is currently at the proof-of-concept stage, and may eat your laundry.
 

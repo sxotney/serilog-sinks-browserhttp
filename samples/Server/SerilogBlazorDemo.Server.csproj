@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Serilog.AspNetCore.Ingestion\Serilog.AspNetCore.Ingestion.csproj" />
+    <ProjectReference Include="..\..\src\UnlockedData.Serilog.AspNetCore.Ingestion\UnlockedData.Serilog.AspNetCore.Ingestion.csproj" />
     <ProjectReference Include="..\Client\SerilogBlazorDemo.Client.csproj" />
     <ProjectReference Include="..\Shared\SerilogBlazorDemo.Shared.csproj" />
   </ItemGroup>

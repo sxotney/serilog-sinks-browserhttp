@@ -15,7 +15,7 @@
         <PackageReference Include="Serilog.Sinks.BrowserConsole" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Serilog.Sinks.BrowserHttp\Serilog.Sinks.BrowserHttp.csproj" />
+        <ProjectReference Include="..\..\src\UnlockedData.Serilog.Sinks.BrowserHttp\UnlockedData.Serilog.Sinks.BrowserHttp.csproj" />
         <ProjectReference Include="..\Shared\SerilogBlazorDemo.Shared.csproj" />
     </ItemGroup>
 </Project>

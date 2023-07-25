@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{CBFD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E9B9B17F-82C0-43FE-AF38-02A980ADBD06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.BrowserHttp", "src\Serilog.Sinks.BrowserHttp\Serilog.Sinks.BrowserHttp.csproj", "{86C82022-0B2E-4125-B062-E60440B17B79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlockedData.Serilog.Sinks.BrowserHttp", "src\UnlockedData.Serilog.Sinks.BrowserHttp\UnlockedData.Serilog.Sinks.BrowserHttp.csproj", "{86C82022-0B2E-4125-B062-E60440B17B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.AspNetCore.Ingestion", "src\Serilog.AspNetCore.Ingestion\Serilog.AspNetCore.Ingestion.csproj", "{6C18787A-F734-4788-A873-4DAD9AC86DF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnlockedData.Serilog.AspNetCore.Ingestion", "src\UnlockedData.Serilog.AspNetCore.Ingestion\UnlockedData.Serilog.AspNetCore.Ingestion.csproj", "{6C18787A-F734-4788-A873-4DAD9AC86DF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerilogBlazorDemo.Shared", "samples\Shared\SerilogBlazorDemo.Shared.csproj", "{4C242BF7-9985-461D-A7F3-88E1B5CEC059}"
 EndProject

@@ -22,6 +22,7 @@ namespace SerilogBlazorDemo.Server
 		{
 
 			services.AddControllersWithViews();
+			services.AddRazorPages();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,7 +30,6 @@ namespace SerilogBlazorDemo.Server
 		{
 			if (env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
 				app.UseWebAssemblyDebugging();
 			}
 			else
@@ -49,6 +49,7 @@ namespace SerilogBlazorDemo.Server
 
 			app.UseEndpoints(endpoints =>
 			{
+				endpoints.MapRazorPages();
 				endpoints.MapControllers();
 				endpoints.MapFallbackToFile("index.html");
 			});

@@ -21,7 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerilogBlazorDemo.Server", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{38E5A08A-E6DA-4DDD-85B6-B99068D4F1F6}"
 ProjectSection(SolutionItems) = preProject
-	global.json = global.json
 	LICENSE = LICENSE
 	README.md = README.md
 	appveyor.yml = appveyor.yml

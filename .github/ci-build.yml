@@ -1,0 +1,55 @@
+name: ci-build
+
+on:
+  push:
+    branches:
+      - main
+      - 'rel/v*'
+    paths-ignore:
+      - README.md
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0'
+      - name: Install Ingestion dependencies
+        run: dotnet restore src/Serilog.AspNetCore.Ingestion/
+      - name: Install BrowserSink dependencies
+        run: dotnet restore src/Serilog.Sinks.BrowserHttp/      
+      - name: ngbv set version
+        uses: aarnott/nbgv@v0.4
+        with:
+          setAllVars: true
+      - run: echo "NBGV_SemVer2 $NBGV_SemVer2"
+      - name: Build
+        run: dotnet build src/Serilog.AspNetCore.Ingestion/ --configuration Release --no-restore
+      - name: Build
+        run: dotnet build src/Serilog.Sinks.BrowserHttp/ --configuration Release --no-restore  
+      - name: Unit Tests
+        run: dotnet test src/Serilog.AspNetCore.Ingestion/ --no-restore --verbosity normal
+      - name: Unit Tests
+        run: dotnet test src/Serilog.Sinks.BrowserHttp/ --no-restore --verbosity normal  
+      - name: Create Package Dir
+        run: mkdir ${{ github.workspace }}/package
+      - name: Pack
+        run: dotnet pack src/Serilog.AspNetCore.Ingestion/ --no-build -c Release --output "${{ github.workspace }}/package"
+      - name: Pack
+        run: dotnet pack src/Serilog.Sinks.BrowserHttp/ --no-build -c Release --output "${{ github.workspace }}/package"  
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: nuget
+          path: ${{ github.workspace }}/package

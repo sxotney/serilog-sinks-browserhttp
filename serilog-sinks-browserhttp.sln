@@ -23,8 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{38E5A08A-E6D
 ProjectSection(SolutionItems) = preProject
 	LICENSE = LICENSE
 	README.md = README.md
-	appveyor.yml = appveyor.yml
-	Build.ps1 = Build.ps1
+	.github\ci-build.yml = .github\ci-build.yml
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Sinks.BrowserHttp.Tests", "test\Serilog.Sinks.BrowserHttp.Tests\Serilog.Sinks.BrowserHttp.Tests.csproj", "{C2AFF365-EEBD-43C5-8915-F1CA75387E4C}"

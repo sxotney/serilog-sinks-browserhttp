@@ -13,6 +13,10 @@ on:
     paths-ignore:
       - README.md
 
+env:
+  AZURE_ARTIFACTS_FEED_URL: https://pkgs.dev.azure.com/unlockeddata/_packaging/unlockeddata/nuget/v3/index.json
+   
+
 jobs:
   build:
     runs-on: windows-latest
@@ -25,6 +29,9 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '7.0'
+          source-url: ${{ env.AZURE_ARTIFACTS_FEED_URL }}
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
       - name: Install Ingestion dependencies
         run: dotnet restore src/UnlockedData.Serilog.AspNetCore.Ingestion/
       - name: Install BrowserSink dependencies
@@ -53,3 +60,7 @@ jobs:
         with:
           name: nuget
           path: ${{ github.workspace }}/package
+            
+      # Publish the package to Azure Artifacts
+      - name: 'dotnet publish'
+        run: dotnet nuget push --api-key AzureArtifacts bin/Release/*.nupkg 

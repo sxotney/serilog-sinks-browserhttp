@@ -64,6 +64,5 @@ jobs:
       # Publish the package to Azure Artifacts
       
       - name: Publish
-        run: dotnet nuget push --api-key AzureArtifacts ${{ github.workspace }}\package/*.nupkg
-      - name: Publish
-        run: dotnet nuget push --api-key AzureArtifacts ${{ github.workspace }}\package/*.nupkg
+        run: dotnet nuget push --api-key AzureArtifacts ${{ github.workspace }}\package\*.nupkg
+      

@@ -25,17 +25,20 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using IBatchedLogEventSink=Serilog.Core.IBatchedLogEventSink;
+
 
 namespace Serilog.Sinks.BrowserHttp
 {
-    class BrowserHttpSink : PeriodicBatchingSink
+    
+    public class BrowserHttpSink : IBatchedLogEventSink
     {
         public const int DefaultBatchPostingLimit = 1000;
         public static readonly TimeSpan DefaultPeriod = TimeSpan.FromSeconds(2);
         public const int DefaultQueueSizeLimit = 100000;
 
         static readonly TimeSpan RequiredLevelCheckInterval = TimeSpan.FromMinutes(2);
-        static readonly JsonValueFormatter JsonValueFormatter = new JsonValueFormatter();
+        static readonly JsonValueFormatter JsonValueFormatter = new ();
 
         readonly string _endpointUrl;
         readonly long? _eventBodyLimitBytes;
@@ -48,14 +51,10 @@ namespace Serilog.Sinks.BrowserHttp
         public BrowserHttpSink(
             HttpClient httpClient,
             string endpointUrl,
-            int batchPostingLimit,
-            TimeSpan period,
             long? eventBodyLimitBytes,
             LoggingLevelSwitch levelControlSwitch,
-            int queueSizeLimit,
             bool disposeHttpClient,
             IDictionary<string, string> defaultRequestHeaders = null)
-        : base(batchPostingLimit, period, queueSizeLimit)
         {
             _endpointUrl = endpointUrl ?? throw new ArgumentNullException(nameof(endpointUrl));
             _eventBodyLimitBytes = eventBodyLimitBytes;
@@ -72,26 +71,24 @@ namespace Serilog.Sinks.BrowserHttp
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing && _disposeHttpClient)
-                _httpClient.Dispose();
-        }
-
         // The sink must emit at least one event on startup, and the server be
         // configured to set a specific level, before background level checks will be performed.
-        protected override async Task OnEmptyBatchAsync()
+
+
+
+        
+        async Task IBatchedLogEventSink.OnEmptyBatchAsync() { await OnEmptyBatchAsync(); }
+        
+        protected async Task OnEmptyBatchAsync()
         {
             if (_controlledSwitch.IsActive &&
                 _nextRequiredLevelCheckUtc < DateTime.UtcNow)
             {
-                await EmitBatchAsync(Enumerable.Empty<LogEvent>());
+                await EmitBatchAsync(new List<LogEvent>());
             }
         }
 
-        protected override async Task EmitBatchAsync(IEnumerable<LogEvent> events)
+        public async Task EmitBatchAsync(IReadOnlyCollection<LogEvent> events)
         {
             _nextRequiredLevelCheckUtc = DateTime.UtcNow.Add(RequiredLevelCheckInterval);
 
@@ -136,7 +133,7 @@ namespace Serilog.Sinks.BrowserHttp
             return payload.ToString();
         }
 
-        protected override bool CanInclude(LogEvent evt)
+        protected bool CanInclude(LogEvent evt)
         {
             return _controlledSwitch.IsIncluded(evt);
         }

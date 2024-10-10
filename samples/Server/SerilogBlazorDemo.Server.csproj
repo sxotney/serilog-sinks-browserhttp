@@ -1,17 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.9" />
-    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
+    <PackageReference Update="Nerdbank.GitVersioning">
+      <Version>3.6.143</Version>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\UnlockedData.Serilog.AspNetCore.Ingestion\UnlockedData.Serilog.AspNetCore.Ingestion.csproj" />
-    <ProjectReference Include="..\Client\SerilogBlazorDemo.Client.csproj" />
     <ProjectReference Include="..\Shared\SerilogBlazorDemo.Shared.csproj" />
   </ItemGroup>
 

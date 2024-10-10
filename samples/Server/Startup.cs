@@ -20,7 +20,8 @@ namespace SerilogBlazorDemo.Server
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-
+			services.AddRazorComponents()
+				.AddInteractiveWebAssemblyComponents();
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 		}
@@ -40,18 +41,19 @@ namespace SerilogBlazorDemo.Server
 			}
 
 			app.UseHttpsRedirection();
-			app.UseBlazorFrameworkFiles();
 			app.UseStaticFiles();
 			app.UseSerilogIngestion();
 			app.UseSerilogRequestLogging();
 
 			app.UseRouting();
-
+			app.UseAntiforgery();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
 				endpoints.MapControllers();
-				endpoints.MapFallbackToFile("index.html");
+				endpoints.MapRazorComponents<App>()
+					.AddInteractiveWebAssemblyRenderMode()
+					.AddAdditionalAssemblies(typeof(SerilogBlazorDemo.Client._Imports).Assembly);
 			});
 		}
 	}

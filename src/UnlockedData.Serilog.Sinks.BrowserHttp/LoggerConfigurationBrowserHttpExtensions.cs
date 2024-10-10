@@ -66,19 +66,22 @@ namespace Serilog
 
             var defaultedPeriod = period ?? BrowserHttpSink.DefaultPeriod;
             var httpClient = messageHandler == null ? new HttpClient() : new HttpClient(messageHandler);
+            var options = new BatchingOptions()
+            {
+                BatchSizeLimit = batchPostingLimit,
+                BufferingTimeLimit = defaultedPeriod,
+                QueueLimit = queueSizeLimit
+            };
 
             var sink = new BrowserHttpSink(
                 httpClient,
                 endpointUrl,
-                batchPostingLimit,
-                defaultedPeriod,
                 eventBodyLimitBytes,
                 controlLevelSwitch,
-                queueSizeLimit,
                 true,
                 defaultRequestHeaders);
 
-            return loggerSinkConfiguration.Sink(sink, restrictedToMinimumLevel);
+            return loggerSinkConfiguration.Sink(sink, options, restrictedToMinimumLevel);
         }
 
         /// <summary>
@@ -116,18 +119,21 @@ namespace Serilog
             VerifyParameters(loggerSinkConfiguration, endpointUrl, queueSizeLimit);
 
             var defaultedPeriod = period ?? BrowserHttpSink.DefaultPeriod;
+            var options = new BatchingOptions()
+            {
+                BatchSizeLimit = batchPostingLimit,
+                BufferingTimeLimit = defaultedPeriod,
+                QueueLimit = queueSizeLimit
+            };
 
             var sink = new BrowserHttpSink(
                 httpClient,
                 endpointUrl,
-                batchPostingLimit,
-                defaultedPeriod,
                 eventBodyLimitBytes,
                 controlLevelSwitch,
-                queueSizeLimit,
                 false);
 
-            return loggerSinkConfiguration.Sink(sink, restrictedToMinimumLevel);
+            return loggerSinkConfiguration.Sink(sink, options, restrictedToMinimumLevel);
         }
 
         private static void VerifyParameters(
